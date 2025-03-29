@@ -1,0 +1,7 @@
+Braemer-Renard Pierre
+Fondacci Jacques
+L2 Info
+
+Projet WEB
+
+Un étudiant malade, un étudiant qui doit aller a un enterrement, un étudiant qui a un rendez-vous important, le point commun de tous ces étudiants est qu'ils seront tous absents aux prochains cours. Ceux-ci auront donc potentiellement des difficultés à accéder aux cours ratés. Mais cela ne s'arrête pas là, un élève avec des troubles de la vision, un élève dyslexique, ou encore, un élève avec des troubles de l'audition ou de la concentration. Ceux-ci, bien que présent, auront sûrement des difficultés à suivre et à prendre en notes le cours. Le problème commun de tous ces jeunes gens est donc d'avoir le cours accessible une fois chez eux pour pouvoir réviser. Or, les autres élèves présent et sans problème peuvent les aidés et les soutenir dans leur apprentissage. Les problèmes du quotidien ne devraient pas empêcher d'étudier.
