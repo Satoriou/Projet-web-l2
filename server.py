@@ -52,6 +52,21 @@ def new_user():
 def profil():
     return render_template('profil.html')
 
+@app.route('/add_note', methods=['POST'])
+@login_required
+def add_note():
+    note_title = request.form['noteTitle']
+    note_content = request.form['noteContent']
+
+    return render_template('index.html')
+
+
+@app.route('/take_note')
+@login_required
+def take_note():
+
+    return render_template('takeNote.html')
+
 
 @app.get('/')
 @login_required

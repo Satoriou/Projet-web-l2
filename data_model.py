@@ -44,7 +44,7 @@ def db_update(query, args=(), db_name=DBFILENAME):
 
 
 def login(name, password):
-    user = db_fetch('SELECT * FROM user WHERE name = ?', (name,))
+    user = db_fetch('SELECT * FROM users WHERE name = ?', (name,))
     if user and check_password_hash(user['password_hash'], password):
         return user['id']
     return -1
@@ -52,5 +52,10 @@ def login(name, password):
 
 def new_user(name, password):
     password_hash = generate_password_hash(password)
-    user_id = db_insert('INSERT INTO user (name, password_hash) VALUES (?, ?)', (name, password_hash))
+    user_id = db_insert('INSERT INTO users (name, password_hash) VALUES (?, ?)', (name, password_hash))
     return user_id
+
+
+def new_note(title, content):
+    note_id = db_insert('INSERT INTO notes (title, content) VALUES (?, ?)', (title, content))
+    return note_id

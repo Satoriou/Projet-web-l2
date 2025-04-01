@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Note</title>
+    <!-- Inclure Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Ajouter une Nouvelle Note</h1>
+        <form action="/add_note" method="post">
+            <div class="form-group">
+                <label for="noteTitle">Titre de la note</label>
+                <input type="text" class="form-control" id="noteTitle" name="noteTitle" placeholder="Entrez le titre de la note" required>
+            </div>
+            <div class="form-group">
+                <label for="noteContent">Contenu de la note</label>
+                <textarea class="form-control" id="noteContent" name="noteContent" rows="5" placeholder="Entrez le contenu de la note" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter une note</button>
+        </form>
+    </div>
+
+    <!-- Inclure Bootstrap JS et jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
