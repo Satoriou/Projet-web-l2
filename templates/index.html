@@ -1,13 +1,9 @@
 {% include "header.html" %}
-  <div>
-    <div>
-      <h1>Accueil</h1>
-
+  <div class="text-center mt-5">
+    <div class="form-group">
       <a>Les prises de notes</a></br>
-      <a>Les groupes</a>
-      <div class="ml-auto">
-        <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('take_note') }}">Ajouter une note</a>
-    </div>
+      <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('social') }}">Les groupes et amis</a></br>
+      <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('notes') }}">Mes Notes</a>
 
     </div>
   </div>

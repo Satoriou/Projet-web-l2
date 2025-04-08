@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Notes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container mt-5">
+        <h1>Mes Notes</h1>
+
+        <!-- Section pour afficher les notes -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Liste des Notes</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for note in notes %}
+                        <a href="/display_note/{{ note.id }}" class="list-group-item list-group-item-action">
+                            <h5>{{ note.title }}</h5>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('take_note') }}">Ajouter une note</a>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

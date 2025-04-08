@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amis et Groupes</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Amis et Groupes</h1>
+
+        <!-- Barre de recherche pour ajouter un ami -->
+        <form action="/add_friend" method="post" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="friend_name" class="form-control" placeholder="Rechercher un utilisateur pour l'ajouter en ami">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Liste des amis -->
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Mes Amis</h2>
+            </div>
+            <div class="card-body">
+            {% if friends %}
+                <ul class="list-group">
+                    {% for friend in friends %}
+                        {% if friend.friend_name == session['user_name'] %}
+                            <li class="list-group-item">{{ friend.user_name }}</li>
+                        {% else %}
+                        <li class="list-group-item">{{ friend.friend_name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Vous n'avez pas encore d'amis.</p>
+            {% endif %}
+            </div>
+        </div>
+
+        <!-- Liste des groupes -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Mes Groupes</h2>
+            </div>
+            <div class="card-body">
+                {% if groups %}
+                <ul class="list-group">
+                    {% for group in groups %}
+                        <li class="list-group-item">{{ group.name }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p>Vous n'avez pas encore de groupes.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
