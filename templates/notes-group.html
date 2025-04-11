@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afficher Note</title>
+    <title>Groupe - {{ group.name }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    {% include "header.html" %}
     <div class="container mt-5">
-        <h1>Afficher Note</h1>
+        <h1>Note du Groupe - {{ group.name }}</h1>
 
         <!-- Section pour afficher la note -->
         <div class="card mt-4">
@@ -20,10 +21,12 @@
             </div>
         </div>
 
-        <a href="/withdraw_note/{{ note.id }}" class="btn btn-secondary mt-3">Supprimer cette note</a>
-
+        {% if session['user_name']==note.owner_name or session['user_name']==group.owner_name%}
+            <a href="/supprimer-note-group/{{ group.id}}/{{ note.id }}" class="btn btn-secondary mt-3">Retirer cette note du groupe</a>
+        {% endif %}
+        
         <!-- Bouton pour revenir à la liste des notes -->
-        <a href="/Mes-notes" class="btn btn-secondary mt-3">Retour à mes notes</a>
+        <a href="/group/{{ group.id }}" class="btn btn-secondary mt-3">Retour au groupe</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

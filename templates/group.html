@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groupe - {{ group.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container mt-5">
+        <h1>Groupe : {{ group.name }}</h1>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Notes Partagées</h2>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% if notes %}
+                        {% for note in notes %}
+                            <a href="/display_note_group/{{ group.id }}/{{ note.id }}" class="list-group-item list-group-item-action">
+                                <h5>{{ note.title }}</h5>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <p>Vous n'avez pas encore de notes.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Membres du groupe</h2>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for mem in memgroup %}
+                            <h5>{{ mem.member_name }}</h5>
+                            {% if group.owner_name == session['user_name'] and mem.member_name != session['user_name'] %}
+                                <a href="/supprimer-mem-group/{{ group.id }}/{{ mem.member_name }}" class="btn btn-secondary mt-1">Supprimer</a>
+                            {%endif%}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Ajouter une Note</h2>
+            </div>
+            <div class="card-body">
+                <form action="/ajouter-note-groupe/{{ group.id }}" method="post">
+                    <div class="form-group">
+                        <label for="note-select">Choisir une Note</label>
+                        <select class="form-control" id="note-select" name="note_id">
+                            {% for note in user_notes %}
+                                <option value="{{ note.id }}">{{ note.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter la Note</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Ajouter un Ami au groupe</h2>
+            </div>
+            <div class="card-body">
+                <form action="/ajouter-ami-groupe/{{ group.id }}" method="post">
+                    <div class="form-group">
+                        <label for="ami-select">Choisir un Ami</label>
+                        <select class="form-control" id="ami-select" name="friend_name">
+                        {% for friend in user_firends %}
+                            {% if friend.friend_name == session['user_name'] %}
+                                <option value="{{ friend.user_name }}">{{ friend.user_name }}</option>
+                            {% else %}
+                                <option value="{{ friend.friend_name }}">{{ friend.friend_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter l'Ami</button>
+                </form>
+            </div>
+        </div>
+        {% if group.owner_name == session['user_name'] %}
+            <a href="/supprimer-groupe/{{ group.id }}" class="btn btn-secondary mt-3">Supprimer ce groupe</a>
+        {% endif %}
+
+        <a href="/social" class="btn btn-secondary mt-3">Retour à la liste des groupes</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

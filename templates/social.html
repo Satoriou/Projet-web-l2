@@ -54,7 +54,9 @@
                 {% if groups %}
                 <ul class="list-group">
                     {% for group in groups %}
-                        <li class="list-group-item">{{ group.name }}</li>
+                        <a href="/group/{{ group.id }}" class="list-group-item list-group-item-action">
+                            <h5> {{ group.name }}</h5>
+                        </a>
                     {% endfor %}
                 </ul>
                 {% else %}
@@ -62,7 +64,24 @@
                 {% endif %}
             </div>
         </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h2>Créer un Groupe</h2>
+            </div>
+            <div class="card-body">
+                <form action="/create_group" method="post">
+                    <div class="form-group">
+                        <label for="nom_groupe">Nom du Groupe</label>
+                        <input type="text" class="form-control" id="nom-groupe" name="nom_groupe" placeholder="Entrez le nom du groupe">
+                    </div>
+                    <button type="submit" class="btn btn-success">Créer le Groupe</button>
+                </form>
+            </div>
+        </div>
     </div>
+
+    <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

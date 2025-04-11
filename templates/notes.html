@@ -18,17 +18,23 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    {% for note in notes %}
-                        <a href="/display_note/{{ note.id }}" class="list-group-item list-group-item-action">
-                            <h5>{{ note.title }}</h5>
-                        </a>
-                    {% endfor %}
+                    {% if notes %}
+                        {% for note in notes %}
+                            <a href="/display_note/{{ note.id }}" class="list-group-item list-group-item-action">
+                                <h5>{{ note.title }}</h5>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <p>Vous n'avez pas encore de notes.</p>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </div>
 
     <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('take_note') }}">Ajouter une note</a>
+
+    <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

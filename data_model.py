@@ -62,7 +62,8 @@ def new_note(title, content,owner):
     return note_id
 
 def add_friend(user, friend):
-    if db_fetch('SELECT * FROM friends WHERE (user_name = ? AND friend_name = ?) OR (friend_name = ? AND user_name = ?)' , (user,friend,)) == None:
+    friends_id = None
+    if (db_fetch('SELECT * FROM friends WHERE (user_name = ? AND friend_name = ?) OR (friend_name = ? AND user_name = ?)' , (user,friend,user,friend,)) == None):
         friends_id = db_insert('INSERT INTO friends (user_name, friend_name) VALUES (?, ?)', (user, friend))
     return friends_id
 
@@ -70,7 +71,7 @@ def list_friends(user):
     return db_fetch('SELECT * FROM friends WHERE user_name = ? OR friend_name = ?', (user,user, ), True)
 
 def list_groups(user):
-    return db_fetch('SELECT * FROM memgroup WHERE member_name = ?', (user,))
+    return db_fetch('SELECT * FROM memgroup JOIN groups ON memgroup.group_id=groups.id WHERE member_name = ?', (user,), True)
 
 def user_exist(name):
     user = db_fetch('SELECT * FROM users WHERE name = ?', (name,))
@@ -82,7 +83,40 @@ def list_notes(name):
 
 def note(note_id):
     return db_fetch('SELECT * FROM notes WHERE id = ?', (note_id,))
+
+def group(group_id):
+    return db_fetch('SELECT * FROM groups WHERE id = ?', (group_id,))
+
+def notes_group(group_id):
+    return db_fetch('SELECT * FROM notegroup JOIN notes ON notes.id=notegroup.note_id WHERE group_id = ?', (group_id,), True)
+
+def add_note_group(group_id, note_id):
+    return db_insert('INSERT INTO notegroup (group_id, note_id) VALUES (?, ?)', (group_id, note_id))
+
+def add_member_group(group_id, member_name):
+    return db_insert('INSERT INTO memgroup (group_id, member_name) VALUES (?, ?)', (group_id, member_name))
+
+def create_groupe(group_name, owner_name):
+    return db_insert('INSERT INTO groups (name, owner_name) VALUES (?, ?)', (group_name, owner_name))
     
     
+def list_memgroup(group_id):
+    return db_fetch('SELECT * FROM memgroup WHERE group_id = ?', (group_id,), True)
     
+def withdraw_note(note_id):
+    db_run('DELETE FROM notes WHERE id = ?', (note_id,))
+    db_run('DELETE FROM notegroup WHERE note_id = ?', (note_id,))
+
+def withdraw_note_group(group_id,note_id):
+    db_run('DELETE FROM notegroup WHERE note_id = ? AND group_id = ?', (note_id, group_id,))
+
+def withdraw_goup(group_id):
+    db_run('DELETE FROM notegroup WHERE group_id = ?', (group_id,))
+    db_run('DELETE FROM memgroup WHERE group_id = ?', (group_id,))
+    db_run('DELETE FROM groups WHERE id = ?', (group_id,))
     
+def withdraw_mem_goup(group_id, mem_name):
+    db_run('DELETE FROM memgroup WHERE member_name = ? AND group_id = ?', (mem_name, group_id,))
+    
+
+
