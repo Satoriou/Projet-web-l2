@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupe - {{ group.name }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
     {% include "header.html" %}
     <div class="container mt-5">
         <h1>Note du Groupe - {{ group.name }}</h1>
 
-        <!-- Section pour afficher la note -->
+        <!-- afficher la note -->
         <div class="card mt-4">
             <div class="card-header">
                 <h2>{{ note.title }}</h2>
@@ -21,11 +23,12 @@
             </div>
         </div>
 
+        <!-- pour permettre à l'admin d'un groupe ou au propriétaire de la note de supprimer celle-ci-->
         {% if session['user_name']==note.owner_name or session['user_name']==group.owner_name%}
             <a href="/supprimer-note-group/{{ group.id}}/{{ note.id }}" class="btn btn-secondary mt-3">Retirer cette note du groupe</a>
         {% endif %}
         
-        <!-- Bouton pour revenir à la liste des notes -->
+        <!-- revenir aux notes -->
         <a href="/group/{{ group.id }}" class="btn btn-secondary mt-3">Retour au groupe</a>
     </div>
 

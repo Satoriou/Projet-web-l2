@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 app.secret_key = os.urandom(24)
 
+#permet de sécuriser l'accès aux pages du site
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -15,6 +16,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+#permet de se connecter
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -28,11 +30,13 @@ def login():
             return render_template('login.html', error="Invalid credentials")
     return render_template('login.html')
 
+#permet de se déconnecter
 @app.route('/logout', methods=['POST'])
 def logout():
     session.pop('user_name', None)
     return redirect(url_for('home'))
 
+#permet de créer un nouveau compte
 @app.route('/new_user', methods=['GET', 'POST'])
 def new_user():
     if request.method == 'POST':
@@ -45,14 +49,14 @@ def new_user():
         return redirect(url_for('home'))
     return render_template('new_user.html')
 
-
+#renvoie vers la page du profil
 @app.route('/profil', methods=['GET', 'POST'])
 @login_required
 def profil():
     return render_template('profil.html')
 
 
-
+#renvoie vers la page des groupes et des amis
 @app.route('/social')
 @login_required
 def social():
@@ -61,16 +65,25 @@ def social():
     return render_template('social.html', friends=friends, groups=groups)
 
 
-
+#permet à l'utilisateur d'ajouter un ami
 @app.route('/add_friend', methods=('POST',))
 @login_required
 def add_friend():
     friend_name = request.form['friend_name']
     if model.user_exist(friend_name) and friend_name != session['user_name']:
-        new_friend = model.add_friend(session['user_name'], friend_name)
+        model.add_friend(session['user_name'], friend_name)
     return redirect(url_for('social'))
 
+#permet à l'utilisateur de supprimer un ami
+@app.route('/supprimer-ami/<string:friend_name>', methods=['GET'])
+@login_required
+def supprimerAmi(friend_name):
+    
+    model.withdraw_friend(friend_name, session['user_name'])
+    
+    return redirect(url_for('social'))
 
+#permet à l'utilisateur de créer un groupe
 @app.route('/create_group', methods=('POST',))
 @login_required
 def creer_groupe():
@@ -80,7 +93,7 @@ def creer_groupe():
     
     return redirect(url_for('social'))
     
-
+#renvoie la page pour afficher un groupe
 @app.route('/group/<int:group_id>')
 @login_required
 def afficher_groupe(group_id):
@@ -94,7 +107,7 @@ def afficher_groupe(group_id):
     
     return render_template('group.html', group=group, notes=notes_group, user_notes=user_notes, user_firends=user_firends, memgroup=memgroup)
 
-
+#permet d'ajouter un note à un groupe
 @app.route('/ajouter-note-groupe/<int:groupe_id>', methods=['POST'])
 @login_required
 def ajouterNoteGroupe(groupe_id):
@@ -109,6 +122,7 @@ def ajouterNoteGroupe(groupe_id):
     
     return redirect(url_for('afficher_groupe', group_id=groupe_id))
 
+#permet à l'admin d'un groupe ou au propiétaire d'une note de la supprimer du groupe
 @app.route('/supprimer-note-group/<int:group_id>/<int:note_id>', methods=['GET'])
 @login_required
 def retirerNoteGroupe(group_id,note_id):
@@ -117,15 +131,16 @@ def retirerNoteGroupe(group_id,note_id):
     
     return redirect(url_for('afficher_groupe', group_id=group_id))
 
-
+#permet à l'admin d'un groupe de supprimer celui-ci
 @app.route('/supprimer-groupe/<int:group_id>', methods=['GET'])
 @login_required
 def supprimerGroupe(group_id):
     
-    model.withdraw_goup(group_id)
+    model.withdraw_group(group_id)
     
     return redirect(url_for('social'))
 
+#permet à l'admin d'un groupe de supprimer un membre
 @app.route('/supprimer-mem-group/<int:group_id>/<string:mem_name>', methods=['GET'])
 @login_required
 def supprimerMemGroup(group_id, mem_name):
@@ -134,7 +149,17 @@ def supprimerMemGroup(group_id, mem_name):
     
     return redirect(url_for('afficher_groupe', group_id=group_id))
 
+#permet de quitter un groupe
+@app.route('/quitter-groupe/<int:group_id>', methods=['GET'])
+@login_required
+def quitterGroupe(group_id):
+    
+    model.leftgroup(group_id, session['user_name'])
+    
+    return redirect(url_for('social'))
 
+
+#permet d'ajoute un ami de l'utilisateur à un groupe dont il fait partis
 @app.route('/ajouter-ami-groupe/<int:groupe_id>', methods=['POST'])
 @login_required
 def ajouter_ami_groupe(groupe_id):
@@ -152,7 +177,7 @@ def ajouter_ami_groupe(groupe_id):
 
     return redirect(url_for('afficher_groupe', group_id=groupe_id))
 
-
+#afficher une note dans le context d'un groupe
 @app.route('/display_note_group/<int:group_id>/<int:note_id>')
 @login_required
 def afficher_note_group(group_id,note_id):
@@ -160,14 +185,14 @@ def afficher_note_group(group_id,note_id):
     
     return render_template('notes-group.html', note=note, group=model.group(group_id))
 
-
+#affiche une note
 @app.route('/display_note/<int:id>')
 @login_required
 def afficher_note(id):
     note = model.note(id)
     return render_template('displayNote.html', note=note)
 
-
+#renvoie vers la page d'affichage des notes
 @app.route('/Mes-notes')
 @login_required
 def notes():
@@ -175,7 +200,7 @@ def notes():
     return render_template('notes.html', notes=notes)
 
 
-
+#permet d'ajouter une note
 @app.route('/add_note', methods=['POST'])
 @login_required
 def add_note():
@@ -185,6 +210,7 @@ def add_note():
     
     return redirect(url_for('notes'))
 
+#permet de supprimer une note
 @app.route('/withdraw_note/<int:note_id>', methods=['GET'])
 @login_required
 def withdraw_note(note_id):
@@ -192,13 +218,13 @@ def withdraw_note(note_id):
     
     return redirect(url_for('notes'))
 
-
+#renvoie vers la page de prise de note
 @app.route('/take_note')
 @login_required
 def take_note():
     return render_template('takeNote.html')
 
-
+#renvoie à la page d'accueil
 @app.get('/')
 @login_required
 def home():

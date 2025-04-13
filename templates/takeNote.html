@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter une Note</title>
-    <!-- Inclure Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
     {% include "header.html" %}
     <div class="container mt-5">
+        <div class="card-body">
         <h1 class="text-center">Ajouter une Nouvelle Note</h1>
+
+        <!-- ajouter une note -->
         <form action="/add_note" method="post">
             <div class="form-group">
                 <label for="noteTitle">Titre de la note</label>
@@ -22,9 +26,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Ajouter une note</button>
         </form>
+        <!-- retourner aux notes -->
+        <a href="/Mes-notes" class="btn btn-secondary mt-3">Retour à la liste des notes</a>
+        </div>
     </div>
 
-    <!-- Inclure Bootstrap JS et jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

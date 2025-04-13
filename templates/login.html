@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>Login</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container"> 
+
+        <!-- formulaire pour créer un compte -->
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="text-center mt-5">Login</h2>
+                <h2 class="text-center mt-5">Se connecter</h2>
                 <form method="POST" action="{{ url_for('login') }}">
                     <div class="form-group">
-                        <label for="name">Username</label>
+                        <label for="name">Nom</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Mot de passe</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block">Connexion</button>
                 </form>
                 {% if error %}
                     <div class="alert alert-danger mt-3">{{ error }}</div>
                 {% endif %}
                 <div class="text-center mt-3">
-                    <p>Don't have an account? <a href="{{ url_for('new_user') }}">Sign Up</a></p>
+                    <p>Pas de compte ? <a href="{{ url_for('new_user') }}">Créer un compte</a></p>
                 </div>
             </div>
         </div>

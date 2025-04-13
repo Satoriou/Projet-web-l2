@@ -1,10 +1,25 @@
 {% include "header.html" %}
-  <div class="text-center mt-5">
-    <div class="form-group">
-      <a>Les prises de notes</a></br>
-      <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('social') }}">Les groupes et amis</a></br>
-      <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('notes') }}">Mes Notes</a>
-
+<div class="text-center mt-5 px-5">
+  <div class="card-deck ">
+    <div class="card bg-dark" >
+      <a class="btn btn-outline-primary" href="{{ url_for('social') }}">
+        <div class="card-body text-center">
+          <br><br><br>
+          <h3 class="card-text">Les groupes et amis</h3>
+          <br><br><br>
+        </div>
+      </a>
     </div>
+
+    <div class="card bg-dark" >
+      <a class="btn btn-outline-primary" href="{{ url_for('notes') }}">
+        <div class="card-body text-center">
+          <br><br><br>
+          <h3 class="card-text">Mes Notes</h3>
+          <br><br><br>
+        </div>
+      </a>
+    </div>     
   </div>
+</div>
 {% include "footer.html" %}

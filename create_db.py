@@ -10,6 +10,9 @@ def db_run(query, args=(), db_name=DBFILENAME):
     conn.commit()
 
 def load(db_name=DBFILENAME):
+    
+    #commandes à lancer une seule fois au premier lancement pour créer la base de données
+    
     db_run('DROP TABLE IF EXISTS users')
     db_run('DROP TABLE IF EXISTS notes')
     db_run('DROP TABLE IF EXISTS groups')

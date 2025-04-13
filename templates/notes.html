@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Notes</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
     {% include "header.html" %}
     <div class="container mt-5">
         <h1>Mes Notes</h1>
 
-        <!-- Section pour afficher les notes -->
+        <!-- afficher les notes -->
+        <div class="card-body">
         <div class="card mt-4">
             <div class="card-header">
                 <h2>Liste des Notes</h2>
@@ -30,12 +33,14 @@
                 </ul>
             </div>
         </div>
+        </br>
+        <!-- ajouter une note -->
+        <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('take_note') }}">Ajouter une note</a>
     </div>
 
-    <a class="btn btn-outline-primary my-2 my-sm-0" href="{{ url_for('take_note') }}">Ajouter une note</a>
 
     <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
-
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

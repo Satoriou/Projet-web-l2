@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groupe - {{ group.name }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
     {% include "header.html" %}
@@ -16,6 +18,7 @@
                 <h2>Notes Partagées</h2>
             </div>
             <div class="card-body">
+                <!-- afficher les notes partagées du groupe -->
                 <div class="list-group">
                     {% if notes %}
                         {% for note in notes %}
@@ -35,6 +38,7 @@
                 <h2>Membres du groupe</h2>
             </div>
             <div class="card-body">
+                <!-- afficher les membres du groupe -->
                 <div class="list-group">
                     {% for mem in memgroup %}
                             <h5>{{ mem.member_name }}</h5>
@@ -52,6 +56,7 @@
                 <h2>Ajouter une Note</h2>
             </div>
             <div class="card-body">
+                <!-- formulaire pour ajouter une note -->
                 <form action="/ajouter-note-groupe/{{ group.id }}" method="post">
                     <div class="form-group">
                         <label for="note-select">Choisir une Note</label>
@@ -71,6 +76,7 @@
                 <h2>Ajouter un Ami au groupe</h2>
             </div>
             <div class="card-body">
+                <!-- formulaire pour ajouter un ami au groupe -->
                 <form action="/ajouter-ami-groupe/{{ group.id }}" method="post">
                     <div class="form-group">
                         <label for="ami-select">Choisir un Ami</label>
@@ -88,8 +94,13 @@
                 </form>
             </div>
         </div>
+
+
+        <!-- permettre aux utilisateurs de quitter le groupe, ou dans le cas de l'admin, de le supprimer-->
         {% if group.owner_name == session['user_name'] %}
             <a href="/supprimer-groupe/{{ group.id }}" class="btn btn-secondary mt-3">Supprimer ce groupe</a>
+        {%else%}
+            <a href="/quitter-groupe/{{ group.id }}" class="btn btn-secondary mt-3">Quitter ce groupe</a>
         {% endif %}
 
         <a href="/social" class="btn btn-secondary mt-3">Retour à la liste des groupes</a>

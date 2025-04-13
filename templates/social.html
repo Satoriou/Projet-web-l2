@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amis et Groupes</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     {% include "header.html" %}
     <div class="container mt-5">
+        <div class="card-body">
         <h1 class="mb-4">Amis et Groupes</h1>
 
-        <!-- Barre de recherche pour ajouter un ami -->
+        <!-- barre de recherche pour ajouter un ami -->
         <form action="/add_friend" method="post" class="mb-4">
             <div class="input-group">
-                <input type="text" name="friend_name" class="form-control" placeholder="Rechercher un utilisateur pour l'ajouter en ami">
+                <input type="text" name="friend_name" class="form-control" placeholder="Rechercher un utilisateur pour l'ajouter en ami" required>
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-primary">Ajouter</button>
                 </div>
             </div>
         </form>
 
-        <!-- Liste des amis -->
+        <!-- liste d'amis -->
 
         <div class="card mt-4">
             <div class="card-header">
@@ -34,8 +35,10 @@
                     {% for friend in friends %}
                         {% if friend.friend_name == session['user_name'] %}
                             <li class="list-group-item">{{ friend.user_name }}</li>
+                            <a href="/supprimer-ami/{{ friend.user_name }}" class="btn btn-secondary mt-1">Supprimer</a>
                         {% else %}
-                        <li class="list-group-item">{{ friend.friend_name }}</li>
+                            <li class="list-group-item">{{ friend.friend_name }}</li>
+                            <a href="/supprimer-ami/{{ friend.friend_name }}" class="btn btn-secondary mt-1">Supprimer</a>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -45,7 +48,7 @@
             </div>
         </div>
 
-        <!-- Liste des groupes -->
+        <!-- liste des groupes -->
         <div class="card mt-4">
             <div class="card-header">
                 <h2>Mes Groupes</h2>
@@ -65,6 +68,7 @@
             </div>
         </div>
 
+        <!-- formulaire pour créer un groupe -->
         <div class="card mt-4">
             <div class="card-header">
                 <h2>Créer un Groupe</h2>
@@ -73,7 +77,7 @@
                 <form action="/create_group" method="post">
                     <div class="form-group">
                         <label for="nom_groupe">Nom du Groupe</label>
-                        <input type="text" class="form-control" id="nom-groupe" name="nom_groupe" placeholder="Entrez le nom du groupe">
+                        <input type="text" class="form-control" id="nom-groupe" name="nom_groupe" placeholder="Entrez le nom du groupe" required>
                     </div>
                     <button type="submit" class="btn btn-success">Créer le Groupe</button>
                 </form>
@@ -82,8 +86,9 @@
     </div>
 
     <a href="/" class="btn btn-secondary mt-3">Retour à l'accueil</a>
+    <br><br>
+    </div>
 
-    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

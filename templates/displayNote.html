@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afficher Note</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 </head>
 <body>
     <div class="container mt-5">
         <h1>Afficher Note</h1>
 
-        <!-- Section pour afficher la note -->
+        <!-- afficher la note -->
         <div class="card mt-4">
             <div class="card-header">
                 <h2>{{ note.title }}</h2>
@@ -19,10 +21,10 @@
                 <p>{{ note.content }}</p>
             </div>
         </div>
-
+        <!-- supprimer la note -->
         <a href="/withdraw_note/{{ note.id }}" class="btn btn-secondary mt-3">Supprimer cette note</a>
 
-        <!-- Bouton pour revenir à la liste des notes -->
+        <!-- revenir aux notes -->
         <a href="/Mes-notes" class="btn btn-secondary mt-3">Retour à mes notes</a>
     </div>
 

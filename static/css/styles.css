@@ -1,0 +1,113 @@
+/* CSS pour un design coloré et harmonieux */
+body {
+    background-color: #F0F8FF; /* Bleu azur très clair */
+    color: #333; /* Texte principal */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: #4682B4; /* Bleu acier */
+    color: #FFFFFF; /* Texte blanc */
+}
+
+.navbar-brand, .navbar-text {
+    color: #FFFFFF; /* Texte blanc */
+}
+
+.btn-primary {
+    background-color: #5F9EA0; /* Bleu-vert cadet */
+    border-color: #5F9EA0;
+}
+
+.btn-primary:hover {
+    background-color: #4682B4; /* Bleu acier */
+    border-color: #4682B4;
+}
+
+.btn-secondary {
+    background-color: #FFD700; /* Or */
+    border-color: #FFD700;
+    color: #333; /* Texte foncé pour contraste */
+}
+
+.btn-secondary:hover {
+    background-color: #DAA520; /* Or foncé */
+    border-color: #DAA520;
+}
+
+.btn-success {
+    background-color: #3CB371; /* Vert moyen mer */
+    border-color: #3CB371;
+}
+
+.btn-success:hover {
+    background-color: #2E8B57; /* Vert mer */
+    border-color: #2E8B57;
+}
+
+.btn-outline-primary {
+    color: #5F9EA0; /* Bleu-vert cadet */
+    border-color: #5F9EA0;
+}
+
+.btn-outline-primary:hover {
+    background-color: #5F9EA0;
+    border-color: #5F9EA0;
+}
+
+.btn-outline-danger {
+    color: #FF6347; /* Tomate */
+    border-color: #FF6347;
+}
+
+.btn-outline-danger:hover {
+    background-color: #FF6347;
+    border-color: #FF6347;
+}
+
+.alert-danger {
+    background-color: #FFB6C1; /* Rose clair */
+    border-color: #FFB6C1;
+    color: #FF4500; /* Orange rouge */
+}
+
+.card {
+    background-color: #FFFFFF; /* Blanc */
+    border-color: #B0E0E6; /* Poudre bleue */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #ADD8E6; /* Bleu clair */
+    border-color: #ADD8E6;
+    color: #333; /* Texte foncé pour contraste */
+}
+
+.list-group-item {
+    background-color: #F0FFF0; /* Miel rosée */
+    border-color: #B0E0E6; /* Poudre bleue */
+}
+
+.list-group-item-action:hover {
+    background-color: #E0EEE0; /* Gris très clair */
+}
+
+.bg-light {
+    background-color: #F5FFFA; /* Vert menthe très clair */
+}
+
+.bg-dark {
+    background-color: #2F4F4F; /* Gris ardoise foncé */
+    color: #FFFFFF; /* Texte blanc */
+}
+
+.text-center {
+    color: #4682B4; /* Bleu acier */
+}
+
+.rounded-circle {
+    background-color: #FF69B4; /* Rose chaud */
+    color: #FFFFFF; /* Texte blanc */
+}
+
+/* Ajoutez d'autres styles selon vos besoins */
