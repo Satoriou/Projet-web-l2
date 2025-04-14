@@ -142,8 +142,19 @@ def leftgroup(group_id, mem_name):
 def withdraw_friend(friend_name, user_name):
     db_run('DELETE FROM friends WHERE (user_name = ? AND friend_name = ?) OR (friend_name = ? AND user_name = ?)', (friend_name, user_name,friend_name, user_name,))
 
-
-
+#supprimer un utilisateur
+def delete_user(user_name):
+    db_run('DELETE FROM friends WHERE user_name= ? OR friend_name = ?', (user_name,user_name,))
+    liste_notes = list_notes(user_name)
+    liste_groupes = list_groups(user_name)
+    
+    for groupe in liste_groupes:
+        withdraw_mem_goup(groupe['id'], user_name)
+        
+        for note in liste_notes:
+            withdraw_note_group(groupe['id'], note['id'])
+            withdraw_note(note['id'])
+    db_run('DELETE FROM users WHERE name = ?', (user_name,))
 
 
 

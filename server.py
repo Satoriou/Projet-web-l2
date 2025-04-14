@@ -224,6 +224,15 @@ def withdraw_note(note_id):
 def take_note():
     return render_template('takeNote.html')
 
+#permet de supprimer un compte
+@app.route('/delete-user', methods=['GET'])
+@login_required
+def delete_user():
+    model.delete_user(session['user_name'])
+    logout()
+    return redirect(url_for('home'))
+
+
 #renvoie à la page d'accueil
 @app.get('/')
 @login_required
